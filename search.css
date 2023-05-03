@@ -1,0 +1,85 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #222 url('cover2.png') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 700px;
+}
+
+h1 {
+	text-align: center;
+	color:#6c757d;
+}
+
+form {
+	margin: 0 auto;
+	width: 50%;
+	text-align: center;
+}
+
+label {
+	display:block;
+	margin-bottom: 2px;
+	color: #000000;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+input[type="text"] {
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	width: 100%;
+	max-width: 400px;
+}
+
+button[type="submit"] {
+	padding: 10px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+    border: 1px solid transparent;
+	display: inline-block;
+    border-radius: 5px;
+    margin-top:30px ;
+    cursor: pointer;
+    font-size: 20px;
+	margin-left: 3%;
+}
+button[type="submit"]:hover {
+    background: #000000 ;
+    color: #fff;
+  }
+  table { 
+    text-align: center;
+	margin-top: 20%;
+	color: #000000;
+	position: fixed;
+	margin-left: 40%;
+	margin-top: 250px;
+	font-size: 20px;
+	border: 1px solid #000000 ; 
+    color:#000000; 
+    background: #fff; 
+    border-radius: 20px;
+	padding: 20px;
+}
+.not-found{
+	text-align: center;
+	margin-top: 20%;
+	color: #000000;
+	position: fixed;
+	margin-left: 42%;
+	margin-top: 250px;
+	font-size: 20px;
+	border: 1px solid #000000 ; 
+    color:#000000; 
+    background: #fff; 
+    border-radius: 20px;
+	padding: 30px;
+}
