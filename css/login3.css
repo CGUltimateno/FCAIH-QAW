@@ -1,0 +1,102 @@
+.container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-size: cover;
+    background: #222 url('../image/cover2.png') no-repeat fixed center center;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.input-group {
+    margin: 10px 0px 10px 0px;
+}
+.input-group label {
+    display: block;
+    text-align: left;
+    margin: 5px;
+    font-size: 20px;
+}
+
+.input-group input {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin-top: 10px;
+}
+.login-box {
+    padding: 20px;
+    margin: -350px auto 100px 700px;
+    position: fixed;
+    width: 400px;
+    border-radius: 10px;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 50px;
+    font-weight: bold;
+
+}
+.login-box {
+    color: black;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+
+}
+.error {
+    width: 92%;
+    margin-top: 10px auto;
+    padding: 10px;
+    border: 1px solid #a94442;
+    color: #a94442;
+    background: #f2dede;
+    border-radius: 5px;
+    text-align: left;
+}
+.btn1{
+    padding: 10px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+    border: 1px solid transparent;
+    display: inline-block;
+    border-radius: 5px;
+    margin-left: 130px;
+    margin-top:30px ;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.btn1:hover {
+    background: #000000 ;
+    color: #fff;
+}
+
+.btn:hover {
+    background: #d3d3d3;
+    color: #fff;
+}
+a{
+    color: #212529;
+    text-decoration: none;
+}
+.image{
+    text-align: center;
+    margin-bottom: 20px;
+    max-width: 100%;
+    height: auto;
+}
