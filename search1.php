@@ -3,10 +3,6 @@ include 'inc/dbh.inc.php';
 
     define('TITLE',"Edit Profile | Discussio");
 
-    if(!isset($_SESSION['id'])) {
-        header("Location: login.php");
-        exit();
-    }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $query = $_POST['query'];
