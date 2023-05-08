@@ -67,7 +67,7 @@ require_once 'inc/dbh.inc.php';
 
                                     <?php
 
-                                    $sql = "SELECT name, description
+                                    $sql = "SELECT name, description, comm_id
                                                 FROM communities
                                                 LIMIT 6";
 
@@ -87,11 +87,11 @@ require_once 'inc/dbh.inc.php';
                                             ?>
 
                                             <div class="media text-muted pt-3">
-                                                <a href="#" >
+                                                <a href="comm.php?comm_id=<?php echo $row['comm_id']; ?>" >
                                                     <img src="image/com.png" alt="" class="mr-2 rounded div-img poll-img">
                                                 </a>
                                                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray ">
-                                                    <a href="#" >
+                                                    <a href="comm.php?comm_id=<?php echo $row['comm_id']; ?>" >
                                                         <strong class="d-block text-gray-dark" style="font-size: 26px;"><?php echo $row['name']; ?></strong>
                                                     </a>
                                                     <?php echo $row['description']; ?>
