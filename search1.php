@@ -1,15 +1,17 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-  $conn = new mysqli('localhost', 'root', '', 'database');
+include 'inc/dbh.inc.php';
 
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+    define('TITLE',"Edit Profile | Discussio");
+
+    if(!isset($_SESSION['id'])) {
+        header("Location: login.php");
+        exit();
+    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $query = $_POST['query'];
   $sql = "SELECT * FROM questions WHERE title LIKE '%$query%' OR body LIKE '%$query%'";
-  $result = $conn->query($sql);
+  $result = $db->query($sql);
 
   if ($result->num_rows > 0) {
     // Display search results

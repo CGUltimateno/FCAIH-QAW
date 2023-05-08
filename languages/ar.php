@@ -12,6 +12,7 @@ $lang =[
     'Contact us' => 'اتصل بنا',
     'Communities' => 'المجتمعات',
     'Create Community' => 'أنشئ مجتمع',
+    'Search' => 'بحث',
     //FOOTER
 
     'Get Started' => 'البدء',
