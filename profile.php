@@ -54,7 +54,7 @@ include 'inc/HTML-head.php';
             
             
             <div class="col-sm-8 text-center" id="user-section">
-                <img class="cover-img" src="image/user-cover.png">
+                <img class="cover-img" src="image/user-cover.jpg">
                 <img class="profile-img" src="<?php echo $user['img']; ?>">
                 
                 

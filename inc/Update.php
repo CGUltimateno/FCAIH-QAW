@@ -18,40 +18,57 @@ if (isset($_REQUEST['update-profile']))
     $bio = $_REQUEST['bio'];
 
 
-    if(isset($_FILES['dp'])){
+    if(isset($_FILES['img'])) {
         // Check if file was uploaded without errors
-        if(isset($_FILES["dp"]) && $_FILES["dp"]["error"] == 0){
+        if (isset($_FILES["img"]) && $_FILES["img"]["error"] == 0) {
             $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "png" => "image/png");
-            $filename = $_FILES["dp"]["name"];
-            $filetype = $_FILES["dp"]["type"];
-            $filesize = $_FILES["dp"]["size"];
+            $filename = $_FILES["img"]["name"];
+            $filetype = $_FILES["img"]["type"];
+            $filesize = $_FILES["img"]["size"];
 
             // Verify file extension
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) die("Error: Please select a valid file format.");
-
-            // Verify file size - 5MB maximum
-            $maxsize = 5 * 1024 * 1024;
-            if($filesize > $maxsize) die("Error: File size is larger than the allowed limit.");
-
-            // Verify MYME type of the file
-            if(in_array($filetype, $allowed)){
-                // Check if file already exists on server and rename if necessary
-                if(file_exists("uploads/" . $filename)){
-                    $filename = uniqid() . '_' . $filename;
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["img"]["name"]);
+            $imageData = file_get_contents($target_file);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            if (isset($_POST["update-profile"])) {
+                $check = getimagesize($_FILES["img"]["tmp_name"]);
+                if ($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    $errors[] = "File is not an image.";
+                    $uploadOk = 0;
                 }
-                $image_path = "" . $filename;
-                move_uploaded_file($_FILES["dp"]["tmp_name"], $image_path);
-                $sql = "UPDATE users SET img='$image_path' WHERE id=".$_SESSION['id'];
-                $result = mysqli_query($db, $sql);
-                if($result){
-                    $_SESSION['img'] = $image_path;
-                }
-            } else{
-                echo "Error: There was a problem uploading your file. Please try again.";
             }
-        } else{
-            echo "Error: " . $_FILES["dp"]["error"];
+
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                $errors[] = "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+            // Allow certain file formats
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif") {
+                $errors[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+
+
+            if ($uploadOk == 0) {
+                $errors[] = "Sorry, your file was not uploaded.";
+            } else {
+                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                    $image_path = mysqli_real_escape_string($db, $target_file);
+                    $sql = "UPDATE users SET img='$image_path' WHERE id=" . $_SESSION['id'];
+                    $result = mysqli_query($db, $sql);
+                    if ($result) {
+                        $_SESSION['img'] = $filename;
+                    }
+                } else {
+                    echo "Error: There was a problem uploading your file. Please try again.";
+                }
+            }
         }
     }
     

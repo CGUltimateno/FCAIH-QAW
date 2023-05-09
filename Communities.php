@@ -88,7 +88,7 @@ require_once 'inc/dbh.inc.php';
 
                                             <div class="media text-muted pt-3">
                                                 <a href="comm.php?comm_id=<?php echo $row['comm_id']; ?>" >
-                                                    <img src="image/com.png" alt="" class="mr-2 rounded div-img poll-img">
+                                                    <img src="image/forum-cover.png" alt="" class="mr-2 rounded div-img poll-img">
                                                 </a>
                                                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray ">
                                                     <a href="comm.php?comm_id=<?php echo $row['comm_id']; ?>" >
@@ -111,7 +111,6 @@ require_once 'inc/dbh.inc.php';
 
                         <br><br><br>
                         <a href="Create_A_Community.php" class="btn btn-primary btn-lg btn-block"><?= __('Create Community')?></a>
-                        <a href="question.php" class="btn btn-warning btn-lg btn-block"><?= __('Ask Question')?></a>
                         <a href="index.php" class="btn btn-secondary btn-lg btn-block"><?= __('Home')?></a>
 
                     </div>

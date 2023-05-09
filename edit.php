@@ -26,17 +26,17 @@ require 'inc/dbh.inc.php';
                 
             </div>
         <div class="col-sm-8 text-center" id="user-section">
-              
+                
               <img class="cover-img" id='blah-cover' src="image/user-cover.jpg">
               
               <form action="inc/Update.php" method='post' enctype="multipart/form-data"
                     style="padding: 0 30px 0 30px;">
-                    
-              
-                    <label class="btn btn-primary">
-                        <?= __('Change Avatar')?> <input type="file" id="imgInp" name='dp' hidden>
-                    </label>
-                    <img class="profile-img" id="blah"  src="<?php echo $_SESSION['img'] ?>" >
+
+
+                  <label class="btn btn-primary">
+                      <?= __('Change Avatar')?> <input type="file" id="imgInp" name="img" hidden>
+                  </label>
+                  <img class="profile-img" id="blah"  src="<?php echo $_SESSION['img'] ?>">
                   
 
                     <?php  
@@ -122,21 +122,25 @@ require 'inc/dbh.inc.php';
 
       </div>
     <script>
-        $(document).ready(function(){
-            $('#imgInp').change(function(){
+        $(document).ready(function() {
+            $('#blah').attr('src', 'uploads/default.png');
+            function readURL(input) {
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function() {
                 readURL(this);
             });
         });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#blah').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

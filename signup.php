@@ -43,7 +43,7 @@ if(isset($_SESSION['id']))
             $errors[] = "The two passwords do not match";
         }
 
-        $target_dir = "uploads/";
+        $target_dir = "uploads/default.png";
         $target_file = $target_dir . basename($_FILES["img"]["name"]);
         $imageData = file_get_contents($target_file);
         $uploadOk = 1;
@@ -118,8 +118,7 @@ if(isset($_SESSION['id']))
                             <div class="mb-3">
                                 <img id="blah" class="rounded" src="#" alt="your image" class="img-responsive rounded"
                                      style="height: 200px; width: 190px; object-fit: cover;">
-                                <br><br><label class="btn btn-primary ">
-                                    Set Avatar <input type="file" id="imgInp" name='img' hidden>
+                                <br><br><label class="btn btn-primary ">Set Avatar<input type="file" id="imgInp" name='img' hidden>
                                 </label>
                             </div>
                         <div class="mb-3">
