@@ -13,6 +13,12 @@ $lang =[
     'Communities' => 'المجتمعات',
     'Create Community' => 'أنشئ مجتمع',
     'Search' => 'بحث',
+    'Question Title' => 'عنوان السؤال',
+    'Question Body' => 'محتوى السؤال',
+    'Ask' => 'اسأل',
+    'Submit Reply' => 'إرسال الرد',
+    'Member since' => 'عضو منذ',
+    'Reputation' => 'سمعة',
     //FOOTER
 
     'Get Started' => 'البدء',
@@ -68,4 +74,9 @@ $lang =[
     'Create Community' => 'إنشاء مجتمع',
     'Error:' => 'خطأ:',
     'Fill in All The Fields' => 'املأ جميع الحقول',
+
+    // COMMUNITY PAGE
+    'Top Questions in $name' => 'أفضل الأسئلة في',
+    'Go to Question' => 'الذهاب إلى السؤال',
+    'Created By' => 'تم الإنشاء بواسطة',
 ];

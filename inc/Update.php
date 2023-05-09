@@ -33,7 +33,7 @@ if (isset($_REQUEST['update-profile']))
     else
     {
         $sql = "SELECT * FROM users WHERE username=?;";
-        $stmt = mysqli_stmt_init($conn);
+        $stmt = mysqli_stmt_init($db);
         
         if (!mysqli_stmt_prepare($stmt, $sql))
         {
@@ -75,7 +75,7 @@ if (isset($_REQUEST['update-profile']))
                 $sql .= "WHERE username=?;";
             }
     
-    $stmt = mysqli_stmt_init($conn);
+    $stmt = mysqli_stmt_init($db);
                     
     if (!mysqli_stmt_prepare($stmt, $sql))
     {

@@ -180,11 +180,11 @@
                                                             <a href="profile.php?id=<?PHP echo $row['id']; ?>" >
                                                                 <strong class="d-block text-gray-dark" style="font-size: 26px;"><?php echo ucwords($row['username']); ?></strong>
                                                             </a>
-                                                            Member Since: 
+                                                            <?= __('Member since')?>
                                                             <?php echo date("Y-m-d", strtotime($row['created_at'])); ?>
                                                             <br>
                                                             <span class="text-primary" >
-                                                                    Reputation: <?php echo $row['reputation']; ?>
+                                                                    <?= __('Reputation')?>: <?php echo $row['reputation']; ?>
                                                             </span>
                                                         </p>
                                                     </div>

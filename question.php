@@ -28,8 +28,7 @@ define('TITLE',"Ask A Question");
                 <form class="contact2-form" method="post" action="inc/question.inc.php">
                     <input type="hidden" name="comm_id" value="<?php echo $_GET['comm_id']; ?>">
                     <span class="contact2-form-title">
-						Ask A Question
-					</span>
+<?= __('Ask Question')?>					</span>
                                     
                                         <span class="text-center">
                                         <?php
@@ -53,16 +52,16 @@ define('TITLE',"Ask A Question");
 
 					<div class="wrap-input2 validate-input" data-validate="Name is required">
                         <input class="input2" type="text" name="title">
-						<span class="focus-input2" data-placeholder="Question Title"></span>
+						<span class="focus-input2" data-placeholder="<?= __('Question Title')?>"></span>
                     </div>
 					<div class="wrap-input2 validate-input" data-validate = "Description is required">
 						<textarea class="input2" name="body"></textarea>
-						<span class="focus-input2" data-placeholder="Question Body"></span>
+						<span class="focus-input2" data-placeholder="<?= __('Question Body')?>"></span>
 					</div>
 					<div class="container-contact2-form-btn">
 						<div class="wrap-contact2-form-btn">
 							<div class="contact2-form-bgbtn"></div>
-                            <button class="contact2-form-btn" type="submit" name="question">ASK</button>
+                            <button class="contact2-form-btn" type="submit" name="question"><?= __('Ask')?></button>
 						</div>
 					</div>
 				</form>
