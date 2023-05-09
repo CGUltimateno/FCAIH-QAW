@@ -214,7 +214,7 @@ else
                 $sql = "select * from answers a, users u "
                         . "where a.question_id=? "
                         . "and a.user_id=u.id "
-                        . "order by a.answer_id;";
+                        . "order by a.a_id;";
                 $stmt = mysqli_stmt_init($db);
 
                 if (!mysqli_stmt_prepare($stmt, $sql))
@@ -327,10 +327,10 @@ else
                                         <p>'.$row['body'].'</p>
                                             <div class="vote text-center">';
 
-                        if ( ($row['id']==$_SESSION['id']) || ($_SESSION['userLevel'] == 1))
-                        {
-                            echo '<a href="inc/delete-post.php?topic='.$q_id.'&post='.$row['id'].'&by='.$row['user_id'].'" >'
-                                . '<i class="fa fa-trash fa-2x" aria-hidden="true"></i></a><br>';
+                        if ( ($row['id']==$_SESSION['id']) || ($_SESSION['username'] == 'admin'))
+                        {   echo $row['a_id']
+                            ?><a href="inc/delete-post.php?a_id=<?php echo $row['a_id'] ?>&q_id=<?php echo $q_id ?>">
+                            <i class="fa fa-trash fa-2x" aria-hidden="true"></i></a><br><?php
                         }
 
                          if ($voted_u)
