@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2023 at 10:48 AM
+-- Generation Time: May 10, 2023 at 12:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `answers` (
-  `id` int(11) NOT NULL,
+  `answer_id` int(11) NOT NULL,
   `body` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `question_id` int(11) NOT NULL,
@@ -41,8 +41,7 @@ CREATE TABLE `answers` (
 -- Dumping data for table `answers`
 --
 
-INSERT INTO `answers` (`id`, `body`, `created_at`, `question_id`, `user_id`, `upvotes`, `downvotes`) VALUES
-(1, 'idk u check it', '2023-05-08 23:18:59', 0, 26, 0, 0),
+INSERT INTO `answers` (`answer_id`, `body`, `created_at`, `question_id`, `user_id`, `upvotes`, `downvotes`) VALUES
 (2, 'wow', '2023-05-09 07:54:43', 0, 26, 0, 0);
 
 -- --------------------------------------------------------
@@ -92,6 +91,20 @@ INSERT INTO `questions` (`q_id`, `body`, `created_at`, `comm_id`, `user_id`, `ti
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `report_type` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `date_reported` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -114,7 +127,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `reputation`, `created_at`, `gender`, `f_name`, `l_name`, `bio`, `img`) VALUES
-(26, 'cg', 'cg@cg.cg', '12345', 0, '2023-05-07 22:05:08', 'm', 'cg', 'u', 'ysewsenbwenw', 'uploads/pfp.jpg');
+(26, 'cg', 'cg@cg.cg', '12345', 0, '2023-05-07 22:05:08', 'm', 'ahmed', 'mohamed', 'hi its me', 'uploads/pfp.jpg'),
+(28, 'Mario', 'mario@gmail.com', '12345', 0, '2023-05-09 22:31:50', 'm', 'super', 'mario', 'yseys', 'uploads/default.pngScreen_Shot_2023_04_05_at_3.56.43_PM.jpg');
 
 -- --------------------------------------------------------
 
@@ -139,7 +153,7 @@ CREATE TABLE `votes` (
 -- Indexes for table `answers`
 --
 ALTER TABLE `answers`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`answer_id`),
   ADD KEY `answers_ibfk_1` (`question_id`),
   ADD KEY `answers_ibfk_2` (`user_id`);
 
@@ -155,6 +169,13 @@ ALTER TABLE `communities`
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`q_id`),
   ADD KEY `questions_ibfk_2` (`user_id`);
+
+--
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -176,28 +197,34 @@ ALTER TABLE `votes`
 --
 
 --
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `communities`
 --
 ALTER TABLE `communities`
   MODIFY `comm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `q_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `votes`
 --
 ALTER TABLE `votes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -217,12 +244,18 @@ ALTER TABLE `questions`
   ADD CONSTRAINT `questions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `votes`
 --
 ALTER TABLE `votes`
   ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `questions` (`q_id`),
-  ADD CONSTRAINT `votes_ibfk_3` FOREIGN KEY (`answer_id`) REFERENCES `answers` (`id`);
+  ADD CONSTRAINT `votes_ibfk_3` FOREIGN KEY (`answer_id`) REFERENCES `answers` (`answer_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
