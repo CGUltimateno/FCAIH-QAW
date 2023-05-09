@@ -1,8 +1,8 @@
 <?php
 session_start();
-require 'includes/dbh.inc.php';
+require 'dbh.inc.php';
 
-define('TITLE',"Profile | KLiK");
+define('TITLE',"Profile | Discussio");
 
 if(!isset($_SESSION['id']))
 {
@@ -21,7 +21,7 @@ else
 
 
 $sql = "select * from users where id = ".$userid;
-$stmt = mysqli_stmt_init($conn);    
+$stmt = mysqli_stmt_init($db);    
 
 if (!mysqli_stmt_prepare($stmt, $sql))
 {
@@ -36,11 +36,11 @@ else
 }
 
 
-include 'inc/HTML-head.php';
+include 'HTML-head.php';
 ?>
 </head>
 <body >
-  <?php include 'inc/navbar.php'; ?>
+
     <h3 style='font-size: 36px;
       color: #007bff;
       text-align: center;
@@ -68,19 +68,19 @@ if (isset($_POST['delete'])) {
     $id = $_POST['id'];
     // SQL query to delete the user with the specified ID
     $sql = "DELETE FROM users WHERE id='$id'";
-    if ($conn->query($sql) === TRUE) {
+    if ($db->query($sql) === TRUE) {
         echo "<script>";
         echo "alert('USER DELETED SUCCESSFULLY.');";
         echo "</script>";
 
     } else {
-        echo "Error deleting user: " . $conn->error;
+        echo "Error deleting user: " . $db->error;
     }
 }
 
 // SQL query to retrieve user data
 $sql = "SELECT id,username,email,img FROM users";
-$result = $conn->query($sql);
+$result = $db->query($sql);
 
 // Check if any results were returned
 if ($result->num_rows > 1 ) {

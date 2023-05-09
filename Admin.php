@@ -1,8 +1,7 @@
 <?php
-session_start();
-require 'includes/dbh.inc.php';
-
-define('TITLE',"Profile | KLiK");
+require 'inc/dbh.inc.php';
+require 'languages/lang.php';
+define('TITLE',"Profile | Discussio");
 
 if(!isset($_SESSION['id']))
 {
@@ -21,7 +20,7 @@ else
 
 
 $sql = "select * from users where id = ".$userid;
-$stmt = mysqli_stmt_init($conn);    
+$stmt = mysqli_stmt_init($db);    
 
 if (!mysqli_stmt_prepare($stmt, $sql))
 {
@@ -38,15 +37,10 @@ else
 include 'inc/HTML-head.php';
 ?>
 </head>
-<body >
+<body>
   <?php include 'inc/navbar.php'; ?>
-    <h3 style='text-align:center'> welcome to your profile Admin </h3>
+  <h3 style='text-align:center' data-i18n="wlcome"> <?= __('Welcome to your profile,')?> <?php echo  $_SESSION['username'];?> </h3>
     <?php include 'inc/profile-card.php'; ?>
-</body>
-
-
-
-
 
   <ul style='list-style: none;
       margin: 0;
@@ -61,9 +55,7 @@ include 'inc/HTML-head.php';
       font-size: 16px;
       border: none;
       border-radius: 5px;
-      cursor: pointer;" onclick="location.href='delete_users.php';"> 
-DELETE USERS
-</button>
+      cursor: pointer;" onclick="location.href='inc/delete_users.php';">DELETE USERS</button>
 </li>
     <li style='display: inline-block;
       margin-right: 10px;
@@ -74,7 +66,7 @@ DELETE USERS
       font-size: 16px;
       border: none;
       border-radius: 5px;
-      cursor: pointer;" onclick="location.href='delete_questions.php';"> 
+      cursor: pointer;" onclick="location.href='inc/delete_questions.php';">
 DELETE QUESTIONS
 </button>
 </li>
@@ -87,7 +79,7 @@ DELETE QUESTIONS
       font-size: 16px;
       border: none;
       border-radius: 5px;
-      cursor: pointer;" onclick="location.href='delete_answers.php';"> 
+      cursor: pointer;" onclick="location.href='inc/delete_answers.php';">
 DELETE ANSWERS
 </button>
 </li>
@@ -100,26 +92,12 @@ DELETE ANSWERS
       font-size: 16px;
       border: none;
       border-radius: 5px;
-      cursor: pointer;" onclick="location.href='delete_community.php';"> 
+      cursor: pointer;" onclick="location.href='inc/delete_community.php';">
 DELETE community
 </button>
 </li>
-    <li style='display: inline-block;
-      margin-right: 10px;
-      vertical-align: middle;'><button style="display: inline-block;
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;" onclick="location.href='delete_tags.php';"> 
-DELETE TAGS
-</button></li>
   </ul>
-
-
-
+</body>
 
 
 

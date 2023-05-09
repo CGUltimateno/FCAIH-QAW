@@ -1,5 +1,5 @@
 <div class='card card-profile text-center'>
-    <img alt='' class='card-img-top card-user-cover' src='image/user-cover.png'>
+    <img alt='' class='card-img-top card-user-cover' src='image/user-cover.jpg'>
     <div class='card-block'>
         <?php if($_SESSION['username']=='admin'){
             $r="Admin.php?login=success";

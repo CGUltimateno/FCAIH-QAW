@@ -15,7 +15,7 @@ require 'inc/dbh.inc.php';
 
 </head>
 
-<body >
+<body>
 
     <?php include 'inc/navbar.php'; ?>
       <div class="container">
@@ -27,7 +27,7 @@ require 'inc/dbh.inc.php';
             </div>
         <div class="col-sm-8 text-center" id="user-section">
               
-              <img class="cover-img" id='blah-cover' src="image/user-cover.png">
+              <img class="cover-img" id='blah-cover' src="image/user-cover.jpg">
               
               <form action="inc/Update.php" method='post' enctype="multipart/form-data"
                     style="padding: 0 30px 0 30px;">
@@ -142,3 +142,4 @@ require 'inc/dbh.inc.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+</body>

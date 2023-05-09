@@ -202,7 +202,6 @@
 
                         <br><br><br>
 
-                        <a href="question.php" class="btn btn-warning btn-lg btn-block"><?= __('Ask Question')?></a>
                         <a href="communities.php" class="btn btn-secondary btn-lg btn-block"><?= __('Communities')?></a>
 
                     </div>

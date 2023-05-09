@@ -1,11 +1,7 @@
 <?php
 session_start();
-define("TITLE", "discussio");
+define("TITLE", "Discussio");
 include_once ('inc/dbh.inc.php');
-function strip_bad_chars( $input ){
-    $output = preg_replace( "/[^a-zA-Z0-9_-]/", "", $input);
-    return $output;
-}
 if(isset($_SESSION['id']))
 {
     header("Location: index.php");

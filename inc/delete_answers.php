@@ -1,8 +1,8 @@
 <?php
 session_start();
-require 'includes/dbh.inc.php';
+require 'dbh.inc.php';
 
-define('TITLE',"Profile | klik");
+define('TITLE',"Profile | Discussio");
 
 if(!isset($_SESSION['id']))
 {
@@ -19,7 +19,7 @@ else
     $userid = $_SESSION['id'];
 }
 
-include 'inc/HTML-head.php'; ?>
+include 'HTML-head.php'; ?>
 <style>
     table {
       margin: 50px auto;
@@ -45,7 +45,6 @@ include 'inc/HTML-head.php'; ?>
 </head>
 <body>
 
-<?php include 'inc/navbar.php'; ?>
 
     <h3 style='font-size: 36px;
       color: #007bff;
@@ -87,28 +86,27 @@ include 'inc/HTML-head.php'; ?>
     </thead>
     <tbody>
       <?php
-        // استدعاء الأسئلة من قاعدة البيانات وعرضها في الجدول
-        
-        require 'includes/dbh.inc.php';
+
+        require 'dbh.inc.php';
         if (isset($_POST['delete'])) {
     
             $id = $_POST['id'];
             // SQL query to delete the user with the specified ID
             $sql = "DELETE FROM answers WHERE id='$id'";
-            if ($conn->query($sql) === TRUE) {
+            if ($db->query($sql) === TRUE) {
                 echo "<script>";
                 echo "alert('ANSWER DELETED SUCCESSFULLY.');";
                 echo "</script>";
         
             } else {
-                echo "Error deleting user: " . $conn->error;
+                echo "Error deleting user: " . $db->error;
             }
         }
         
         
 
         $sql = "SELECT * FROM answers";
-        $result = mysqli_query($conn, $sql);
+        $result = mysqli_query($db, $sql);
 
         if (mysqli_num_rows($result) > 0) {
           while($row = mysqli_fetch_assoc($result)) {
@@ -132,7 +130,7 @@ include 'inc/HTML-head.php'; ?>
           echo '<tr><td colspan="7">THERE IS NO ANSWERS </td></tr>';
         }
 
-        mysqli_close($conn);
+        mysqli_close($db);
       ?>
     </tbody>
   </table>
