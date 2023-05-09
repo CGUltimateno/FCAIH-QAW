@@ -39,7 +39,7 @@ else
 include 'inc/HTML-head.php';
 ?> 
 </head>
-<body >
+<body>
   <?php include 'inc/navbar.php'; ?>
     <h3 style='text-align:center' data-i18n="wlcome"> <?= __('Welcome to your profile,')?> <?php echo  $_SESSION['username'];?> </h3>
     <div class="container">
@@ -86,8 +86,7 @@ include 'inc/HTML-head.php';
                 <br><br>
                 
                 <?php
-                      $sql = "select * from questions "
-                              . "where user_id = ?";
+                $sql = "SELECT * FROM questions WHERE user_id = ?";
                       $stmt = mysqli_stmt_init($db);
   
                       if (!mysqli_stmt_prepare($stmt, $sql))
@@ -100,8 +99,7 @@ include 'inc/HTML-head.php';
                           mysqli_stmt_execute($stmt);
                           $result = mysqli_stmt_get_result($stmt);
                           
-                          echo '<div class="container">'
-                                      .'<div class="row">';
+                          echo '<div class="container"><div class="row">';
                           
                           $row = mysqli_fetch_assoc($result);
                          
@@ -118,23 +116,20 @@ include 'inc/HTML-head.php';
                           else
                           {
                               do
-                              {       
-                                      echo '<div class="col-sm-4" style="padding-bottom: 30px;">
-                                          <div class="card user-blogs">
-                                              <a href="Question.php?id='.$row['user_id'].'">
-                                             
-                                              <div class="card-block p-2">
-                                                <p class="card-title">'.ucwords($row['title']).'</p>
-                                                <p>'. ucwords($row['body']).'</p>
-                                               <p class="card-text"><small class="text-muted">'
-                                               .date("F jS, Y", strtotime($row['created_at'])).'</small></p>
-                                              </div>
-                                              </a>
-                                            </div>
-                                            </div>';
+                              {
+                                  echo '<div class="col-sm-4" style="padding-bottom: 30px;">
+                        <div class="card user-blogs">
+                          <a href="posts.php?topic='.$row['q_id'].'">
+                            <div class="card-block p-2">
+                              <p class="card-title">'.ucwords($row['title']).'</p>
+                              <p>'. ucwords($row['body']).'</p>
+                              <p class="card-text"><small class="text-muted">'.date("F jS, Y", strtotime($row['created_at'])).'</small></p>
+                            </div>
+                          </a>
+                        </div>
+                      </div>';
                               }while ($row = mysqli_fetch_assoc($result));
-                              echo '</div>'
-                                      .'</div>';
+                              echo '</div></div>';
                           }
                       }
                 ?>
@@ -183,7 +178,7 @@ include 'inc/HTML-head.php';
                             {       
                                     echo '<div class="col-sm-4" style="padding-bottom: 30px;">
                                         <div class="card user-blogs">
-                                            <a href="Answer.php?id='.$row['user_id'].'">
+                                            <a href="posts.php?topic='.$row['question_id'].'">
                                             
                                             <div class="card-block p-2">
                                               <p class="card-title">'.ucwords($row['body']).'</p>
@@ -242,7 +237,7 @@ include 'inc/HTML-head.php';
                             {       
                                     echo '<div class="col-sm-4" style="padding-bottom: 30px;">
                                         <div class="card user-blogs">
-                                            <a href="communities.php?id='.$row['comm_id'].'">
+                                            <a href="comm.php?comm_id='.$row['comm_id'].'">
                                             
                                             <div class="card-block p-2">
                                               <p class="card-title">'.ucwords($row['name']).'</p>

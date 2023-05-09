@@ -91,7 +91,7 @@
                                 <div class="row mb-2">
 
                                     <?php
-                                        $sql = "SELECT questions.id, title, questions.created_at, upvotes, downvotes, users.username
+                                        $sql = "SELECT questions.q_id, title, questions.created_at, upvotes, downvotes, users.username
                                                 FROM questions
                                                 INNER JOIN users ON users.id = user_id
                                                 ORDER BY upvotes DESC
@@ -112,7 +112,7 @@
                                             {
                                                 ?><div class="col-md-6">
                                                         <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-															<a href="posts.php?topic=<?php echo $row['id'] ?>">
+															<a href="posts.php?topic=<?php echo $row['q_id'] ?>">
 															<img class="card-img-left flex-auto d-none d-lg-block blogindex-cover"
                                                                  src="image/forum-cover.png" alt="Card image cap">
 															</a>
@@ -121,12 +121,12 @@
 																	<i class="fa fa-chevron-up" aria-hidden="true"></i><br><?php echo ($row['upvotes'] - $row['downvotes']) ?>
 																</strong>
 																<h6 class="mb-0">
-																  <a class="text-dark" href="posts.php?topic=<?php echo $row['id'] ?>"><?php echo
+																  <a class="text-dark" href="posts.php?topic=<?php echo $row['q_id'] ?>"><?php echo
 																	substr($row['title'],0,30)?></a>
 																</h6>
 																<small class="mb-1 text-muted"><?php echo date("Y-m-d", strtotime($row['created_at'])) ?></small>
 																<small class="card-text mb-auto">Created By: <?php echo $row['username'] ?></small>
-																<a href="posts.php?topic= <?php echo $row['id'] ?>">Go To Forum</a>
+																<a href="posts.php?topic= <?php echo $row['q_id'] ?>">Go To Question</a>
 															</div>
 
                                                         </div>

@@ -1,11 +1,11 @@
 <?php
 
-    session_start();
     include_once 'inc/dbh.inc.php';
+    require "languages/lang.php";
+
+define('TITLE',"Ask A Question");
     
-    define('TITLE',"Ask A Question");
-    
-    if(!isset($_SESSION['userId']))
+    if(!isset($_SESSION['id']))
     {
         header("Location: login.php");
         exit();
@@ -25,8 +25,9 @@
     <div class="bg-contact2" style="background-image: url('img/banner.png');">
 		<div class="container-contact2">
 			<div class="wrap-contact2">
-				<form class="contact2-form" method="post"  action="includes/question.inc.php">
-					<span class="contact2-form-title">
+                <form class="contact2-form" method="post" action="inc/question.inc.php">
+                    <input type="hidden" name="comm_id" value="<?php echo $_GET['comm_id']; ?>">
+                    <span class="contact2-form-title">
 						Ask A Question
 					</span>
                                     
@@ -49,73 +50,21 @@
                                             }
                                         ?>
                                         </span>
-                                    
-                                    <?php
-                                        $sql = "select id, name from tags;";
-                                        $stmt = mysqli_stmt_init($db);
-
-                                        if (!mysqli_stmt_prepare($stmt, $sql))
-                                        {
-                                            die('sql error');
-                                        }
-                                        else
-                                        {
-                                            mysqli_stmt_execute($stmt);
-                                            $result = mysqli_stmt_get_result($stmt);
-
-                                            if (mysqli_num_rows($result) == 0)
-                                            {
-                                                echo "<h5 class='text-center text-muted'>You cannot ask a question before the admin creates "
-                                                . "some categories</h5>";
-                                            }
-                                            else
-                                            {
-                                    ?>
-                                    
-                                    
 
 					<div class="wrap-input2 validate-input" data-validate="Name is required">
-						<input class="input2" type="text" name="title">
+                        <input class="input2" type="text" name="title">
 						<span class="focus-input2" data-placeholder="Question Title"></span>
-					</div>
-                                    
-
-                                        <label>Category</label>
-                                        <select  class="form-control" name="cat_id" >
-                                        <?php 
-                                            while($row = mysqli_fetch_assoc($result))
-                                            {
-                                                echo '<option value='.$row['cat_ID'].'>' . $row['cat_name'] . '</option>';
-                                            }
-                                        ?>
-                                        </select><br><br>
-                                        
-                                    
+                    </div>
 					<div class="wrap-input2 validate-input" data-validate = "Description is required">
 						<textarea class="input2" name="body"></textarea>
 						<span class="focus-input2" data-placeholder="Question Body"></span>
 					</div>
-
 					<div class="container-contact2-form-btn">
 						<div class="wrap-contact2-form-btn">
 							<div class="contact2-form-bgbtn"></div>
-                                                        <button class="contact2-form-btn" type="submit" name="question">
-								ASK
-							</button>
+                            <button class="contact2-form-btn" type="submit" name="question">ASK</button>
 						</div>
 					</div>
-                                    
-                                    
-                                    
-                                    <?php
-                                            }
-                                        }
-                                    ?>
-                                        
-                                    <div class="text-center">
-                                        <br><br><a class="btn btn-light btn-lg btn-block" href="questions.php">
-                                            View Questions</a>
-                                    </div>
 				</form>
 			</div>
 		</div>

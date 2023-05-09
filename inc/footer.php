@@ -10,7 +10,7 @@
                     <h5><?= __('Get Started')?></h5>
                     <ul>
                         <li><a href="index.php"><?= __('Home')?></a></li>
-                        <li><a href="forum.php"><?= __('The Discussio Forum')?></a></li>
+                        <li><a href="communities.php"><?= __('The Discussio Forum')?></a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">

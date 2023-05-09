@@ -2,7 +2,7 @@
     define('TITLE',"Contact Us | Discussio");
     require "languages/lang.php";
     include 'inc/HTML-head.php';
-    require 'inc/email-server.php';
+require 'inc/email-server.php';
 ?>  
 
 	<link rel="stylesheet" type="text/css" href="css/contact-util.css">
@@ -14,7 +14,7 @@
     
     <?php
     
-        if(isset($_SESSION['userId']))
+        if(isset($_SESSION['id']))
         {
             include 'inc/navbar.php';
         }
@@ -114,7 +114,7 @@
 				</span>
 
                                 <?php 
-                                    if(!isset($_SESSION['userId']))
+                                    if(!isset($_SESSION['id']))
                                     {
                                 ?>
                             

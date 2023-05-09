@@ -36,7 +36,7 @@ require 'inc/dbh.inc.php';
                     <label class="btn btn-primary">
                         <?= __('Change Avatar')?> <input type="file" id="imgInp" name='dp' hidden>
                     </label>
-                    <img class="profile-img" id="blah"  src="img/<?php echo $_SESSION['img'] ?>" > 
+                    <img class="profile-img" id="blah"  src="<?php echo $_SESSION['img'] ?>" >
                   
 
                     <?php  
