@@ -214,7 +214,7 @@ else
                 $sql = "select * from answers a, users u "
                         . "where a.question_id=? "
                         . "and a.user_id=u.id "
-                        . "order by a.id;";
+                        . "order by a.answer_id;";
                 $stmt = mysqli_stmt_init($db);
 
                 if (!mysqli_stmt_prepare($stmt, $sql))

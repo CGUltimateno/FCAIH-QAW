@@ -18,8 +18,10 @@
                     <ul>
                         <li><a href="#"></a><?= __('Mohamed Daif')?></li>
                         <li><a href="#"></a><?= __('Mohamed Mamdouh')?></li>
-                        <li><a href="_klik creators/klik_anas-kamal.php"></a></li>
-                        <li><a href="_klik creators/klik_ubaid.php"></a></li>
+                        <li><a href="#"></a><?= __('Omar Sabry')?></li>
+                        <li><a href=""></a><?= __('Abdulrahman Salah')?></li>
+                        <li><a href=""></a><?= __('Abdulrahman Safwat')?></li>
+                        <li><a href=""></a><?= __('Omar Imam')?></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
