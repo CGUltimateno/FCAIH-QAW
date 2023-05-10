@@ -29,6 +29,46 @@ if(isset($_SESSION['id']))
         $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
         $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
+        $target_file = "uploads/default.png";
+        if (isset($_FILES["img"]) && $_FILES["img"]["error"] == 0) {
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["img"]["name"]);
+            $imageData = file_get_contents($target_file);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            $check = getimagesize($_FILES["img"]["tmp_name"]);
+            if ($check !== false) {
+                $uploadOk = 1;
+            } else {
+                $errors[] = "File is not an image.";
+                $uploadOk = 0;
+            }
+
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                $errors[] = "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+            // Allow certain file formats
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif") {
+                $errors[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+
+            if ($uploadOk == 0) {
+                $errors[] = "Sorry, your file was not uploaded.";
+            } else {
+                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                    $image_path = mysqli_real_escape_string($db, $target_file);
+                } else {
+                    $errors[] = "Sorry, there was an error uploading your file.";
+                }
+            }
+        } else {
+            $image_path = mysqli_real_escape_string($db, $target_file);
+        }
         // form validation
         if (empty($username)) {
             $errors[] = "Username is required";
@@ -42,39 +82,7 @@ if(isset($_SESSION['id']))
         if ($password_1 != $password_2) {
             $errors[] = "The two passwords do not match";
         }
-
-        $target_dir = "uploads/default.png";
-        $target_file = $target_dir . basename($_FILES["img"]["name"]);
-        $imageData = file_get_contents($target_file);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        if (isset($_POST["register_btn"])) {
-            $check = getimagesize($_FILES["img"]["tmp_name"]);
-            if ($check !== false) {
-                $uploadOk = 1;
-            } else {
-                $errors[] = "File is not an image.";
-                $uploadOk = 0;
-            }
-        }
-
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            $errors[] = "Sorry, file already exists.";
-            $uploadOk = 0;
-        }
-        // Allow certain file formats
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif") {
-            $errors[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            $uploadOk = 0;
-        }
-
-        if ($uploadOk == 0) {
-            $errors[] = "Sorry, your file was not uploaded.";
-        } else {
-            if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-                $image_path = mysqli_real_escape_string($db, $target_file);
+        if (empty($errors)) {
                 $query = "INSERT INTO users (username, email, password, f_name, l_name, gender, bio, img) VALUES('$username', '$email', '$password_1', '$f_name', '$l_name', '$gender', '$bio', '$image_path')";
                 mysqli_query($db, $query);
                 $_SESSION['username'] = $username;
@@ -85,7 +93,6 @@ if(isset($_SESSION['id']))
                 $errors[] = "Sorry, there was an error uploading your file.";
             }
         }
-    }
 
 ?>
 <!DOCTYPE html>

@@ -92,21 +92,10 @@ require_once 'inc/HTML-head.php';
                                             FROM questions
                                             INNER JOIN users ON users.id = questions.user_id
                                             WHERE comm_id = $comm_id
-                                            ORDER BY upvotes DESC
-                                            LIMIT 6";
-                                        $stmt = mysqli_stmt_init($db);
+                                            ORDER BY upvotes DESC";
+                                    $result = mysqli_query($db, $sql);
 
-                                        if (!mysqli_stmt_prepare($stmt, $sql))
-                                        {
-                                            die('SQL error');
-                                        }
-                                        else
-                                        {
-                                            mysqli_stmt_execute($stmt);
-                                            $result = mysqli_stmt_get_result($stmt);
-
-
-                                            while ($row = mysqli_fetch_assoc($result))
+                                    while ($row = mysqli_fetch_assoc($result))
                                             {
                                                 ?><div class="col-md-6">
                                                         <div class="card flex-md-row mb-4 shadow-sm h-md-250">
@@ -130,10 +119,8 @@ require_once 'inc/HTML-head.php';
                                                         </div>
                                                     </div><?php
                                             }
-                                        }
-                                    ?>        
 
-
+                                    ?>
                                 </div>
 
                             </div>

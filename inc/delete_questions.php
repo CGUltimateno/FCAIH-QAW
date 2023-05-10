@@ -87,7 +87,7 @@ include 'HTML-head.php'; ?>
     
             $id = $_POST['id'];
             // SQL query to delete the user with the specified ID
-            $sql = "DELETE FROM questions WHERE id='$id'";
+            $sql = "DELETE FROM questions WHERE q_id='$id'";
             if ($db->query($sql) === TRUE) {
                 echo "<script>";
                 echo "alert('QUESTION DELETED SUCCESSFULLY.');";
@@ -106,7 +106,7 @@ include 'HTML-head.php'; ?>
         if (mysqli_num_rows($result) > 0) {
           while($row = mysqli_fetch_assoc($result)) {
             echo '<tr>';
-            echo '<td>' . $row['id'] . '</td>';
+            echo '<td>' . $row['q_id'] . '</td>';
             echo '<td>' . $row['user_id'] . '</td>';
             echo '<td>' . $row['title'] . '</td>';
             echo '<td>' . $row['body'] . '</td>';
@@ -115,7 +115,7 @@ include 'HTML-head.php'; ?>
             echo '<td>' . $row['created_at'] . '</td>';
             echo '<td>';
             echo "<form method='POST'>";
-            echo "<input type='hidden' name='id' value='" . $row["id"] . "'>";
+            echo "<input type='hidden' name='id' value='" . $row["q_id"] . "'>";
             echo "<input type='submit' name='delete' value='Delete'>";
             echo "</form>";
             echo '</tr>';

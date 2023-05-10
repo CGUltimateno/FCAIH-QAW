@@ -53,63 +53,6 @@
             }
         }
     }
-// Delete question
-if (isset($_POST['delete-question']))
-{
-    $sql = "delete from questions where q_id = ?";
-    $stmt = mysqli_stmt_init($db);
-
-    if (!mysqli_stmt_prepare($stmt, $sql))
-    {
-        die('sql error');
-    }
-    else
-    {
-        mysqli_stmt_bind_param($stmt, "s", $q_id);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-
-        header('Location: comm.php');
-        exit();
-    }
-}
-// Upvote question
-if (isset($_POST['upvote-question']))
-{
-    $sql = "insert into votes(question_id, user_id, type) values (?, ?, 1)";
-    $stmt = mysqli_stmt_init($db);
-
-    if (!mysqli_stmt_prepare($stmt, $sql))
-    {
-        die('sql error');
-    }
-    else
-    {
-        mysqli_stmt_bind_param($stmt, "ss", $q_id, $_SESSION['id']);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-    }
-}
-
-// Downvote question
-if (isset($_POST['downvote-question']))
-{
-    $sql = "insert into votes(question_id, user_id, type) values (?, ?, 0)";
-    $stmt = mysqli_stmt_init($db);
-
-    if (!mysqli_stmt_prepare($stmt, $sql))
-    {
-        die('sql error');
-    }
-    else
-    {
-        mysqli_stmt_bind_param($stmt, "ss", $q_id, $_SESSION['id']);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-    }
-}
-
-
 $sql = "SELECT questions.*, communities.name AS comm_name "
     . "FROM questions "
     . "INNER JOIN communities ON questions.comm_id = communities.comm_id "
@@ -151,9 +94,53 @@ else
         }
     }
 }
+// Upvote and downvote functionality
+if (isset($_POST['upvote'])) {
+    $q_id = $_POST['q_id'];
+    $sql = "UPDATE questions SET upvotes = upvotes + 1 WHERE q_id = ?";
+    $stmt = mysqli_stmt_init($db);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die('sql error');
+    } else {
+        mysqli_stmt_bind_param($stmt, "s", $q_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+    }
+
+    // Get the updated vote count
+    $sql = "SELECT upvotes FROM questions WHERE q_id = ?";
+    $stmt = mysqli_stmt_init($db);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die('sql error');
+    } else {
+        mysqli_stmt_bind_param($stmt, "s", $q_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($row = mysqli_fetch_assoc($result)) {
+            echo $row['upvotes'];
+        }
+    }
+
+    exit();
+}
+
+
+if (isset($_POST['downvote'])) {
+    $sql = "UPDATE questions SET downvotes = downvotes + 1 WHERE q_id = ?";
+    $stmt = mysqli_stmt_init($db);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die('sql error');
+    } else {
+        mysqli_stmt_bind_param($stmt, "s", $q_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+    }
+}
 ?>
-
-
     <br><Br>
     <div class="container">
     <div class="col-sm-12">
@@ -173,8 +160,6 @@ else
                         <small class="text-muted"><?php echo $bio; ?></small><br><br>
                         <a href="profile.php?id='.$row['id'].'">
                             <i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                        <a href="message.php?id='.$row['id'].'">
-                            <i class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div class="col-sm-9 title">
@@ -190,11 +175,12 @@ else
                     <div class="col-sm-9"></div>
                     <div class="col-sm-3">
                         <div class="text-right">
-                            <a href="#" class="vote-up">
-                                <i class="fa fa-caret-up fa-3x" aria-hidden="true"></i></a><br>
-                            <span class="vote-count"><?php echo $forum['upvotes']; ?></span><br>
-                            <a href="#" class="vote-down">
-                                <i class="fa fa-caret-down fa-3x" aria-hidden="true"></i></a><br>
+                            <a href="#" class="vote-up" data-post-id="<?php echo $forum['q_id']; ?>">
+                                <i class="fa fa-caret-up fa-3x" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="vote-down" data-post-id="<?php echo $forum['q_id']; ?>">
+                                <i class="fa fa-caret-down fa-3x" aria-hidden="true"></i>
+                            </a>
                             <?php if ($username === $forum['q_id']): ?>
                                 <a href="delete.php?id=<?php echo $forum['post_id']; ?>" class="delete">
                                     <i class="fa fa-trash fa-3x" aria-hidden="true"></i></a>
@@ -318,8 +304,7 @@ else
                                             <small class="text-muted">'.$row['bio'].'</small><br><br>
                                             <a href="profile.php?id='.$row['id'].'">
                                                 <i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-                                            <a href="message.php?id='.$row['id'].'">
-                                                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+
                                         </div>
                                     </div>
 
@@ -380,8 +365,25 @@ else
 </div>
 
     <?php include 'inc/footer.php'; ?>
+<script>
+    $(document).ready(function() {
+        $('.vote-up, .vote-down').click(function(event) {
+            event.preventDefault();
 
+            var postId = $(this).data('post-id');
+            var action = $(this).hasClass('vote-up') ? 'upvote' : 'downvote';
 
+            $.ajax({
+                url: 'vote.php',
+                type: 'post',
+                data: { post_id: postId, action: action },
+                success: function(response) {
+                    $('.vote-count[data-post-id="' + postId + '"]').html(response);
+                }
+            });
+        });
+    });
+</script>
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js" ></script>
     </body>

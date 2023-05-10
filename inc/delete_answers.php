@@ -111,7 +111,7 @@ include 'HTML-head.php'; ?>
         if (mysqli_num_rows($result) > 0) {
           while($row = mysqli_fetch_assoc($result)) {
             echo '<tr>';
-            echo '<td>' . $row['id'] . '</td>';
+            echo '<td>' . $row['answer_id'] . '</td>';
             echo '<td>' . $row['body'] . '</td>';
             echo '<td>' . $row['created_at'] . '</td>';
             echo '<td>' . $row['question_id'] . '</td>';
@@ -121,7 +121,7 @@ include 'HTML-head.php'; ?>
             
             echo '<td>';
             echo "<form method='POST'>";
-            echo "<input type='hidden' name='id' value='" . $row["id"] . "'>";
+            echo "<input type='hidden' name='id' value='" . $row["answer_id"] . "'>";
             echo "<input type='submit' name='delete' value='Delete'>";
             echo "</form>";
             echo '</tr>';
